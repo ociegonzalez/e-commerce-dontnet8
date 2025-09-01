@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "/home/ozzy/Documents/c#/e-commerce/wwwroot/ProductsImages/20089266bd7f-0022-4af1-9015-a442926a3fd9",
+      "PackagePath": "staticwebassets/ProductsImages"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.e-commerce.props",
+      "PackagePath": "build\\e-commerce.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.e-commerce.props",
+      "PackagePath": "buildMultiTargeting\\e-commerce.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.e-commerce.props",
+      "PackagePath": "buildTransitive\\e-commerce.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.e-commerce.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

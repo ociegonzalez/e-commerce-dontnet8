@@ -19,6 +19,19 @@ public class ProductRepository: IProductRepository
         return _db.Products.Include(p => p.Category).OrderBy(p => p.Name).ToList();
     }
 
+    public ICollection<Product> GetProductsInPages(int pageNumber, int pageSize)
+    {
+        return _db.Products.OrderBy(p => p.ProductId)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+    }
+
+    public int GetTotalProducts()
+    {
+        return _db.Products.Count();
+    }
+
     public ICollection<Product> GetProductsForCategory(int categoryId)
     {
         if (categoryId == 0) return new List<Product>();

@@ -262,7 +262,9 @@ namespace e_commerce.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrlLocal")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

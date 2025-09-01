@@ -2,6 +2,7 @@ using Asp.Versioning;
 using AutoMapper;
 using e_commerce.Model;
 using e_commerce.Model.Dtos;
+using e_commerce.Model.Dtos.Responses;
 using e_commerce.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,33 @@ namespace e_commerce.Controllers
             return Ok(productDto);
         }
         
+        [AllowAnonymous]
+        [HttpGet("Paged", Name = "GetProductsInPage")]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetProductsInPage([FromQuery] int pageNumber, [FromQuery] int pageSize)
+        {
+            if (pageNumber < 1 || pageSize < 1) return BadRequest("Los parametros de paginacion no son validos");
+            
+            var totalProducts = _productRepository.GetTotalProducts();
+            var totalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
+            
+            if (pageNumber > totalPages) return NotFound("No hay mas paginas disponibles");
+            
+            var products = _productRepository.GetProductsInPages(pageNumber, pageSize);
+            var productDto = _mapper.Map<List<ProductDto>>(products);
+            var paginationResponse = new PaginationResponse<ProductDto>()
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalPages = totalPages,
+                Items = productDto
+            };
+            return Ok(paginationResponse);
+        }
+        
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -61,7 +89,7 @@ namespace e_commerce.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult CreateProduct([FromBody] CreateProductDto createProductDto)
+        public IActionResult CreateProduct([FromForm] CreateProductDto createProductDto)
         {
             if (createProductDto == null) return BadRequest(ModelState);
 
@@ -78,6 +106,17 @@ namespace e_commerce.Controllers
             }
             
             var product = _mapper.Map<Product>(createProductDto);
+            
+            //Agregando Imagen
+
+            if (string.IsNullOrEmpty(createProductDto.ImageUrl))
+            {
+                UploadProductImage(createProductDto, product); 
+            }
+            else
+            {
+                product.ImageUrl = "https://placehold.co/600x400";
+            }
 
             if (!_productRepository.CreateProduct(product))
             {
@@ -162,7 +201,7 @@ namespace e_commerce.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult UpdateProduct(int productId,[FromBody] UpdateProductDto updateProductDto)
+        public IActionResult UpdateProduct(int productId,[FromForm] UpdateProductDto updateProductDto)
         {
             if (updateProductDto == null) return BadRequest(ModelState);
 
@@ -180,6 +219,21 @@ namespace e_commerce.Controllers
             
             var product = _mapper.Map<Product>(updateProductDto);
             product.ProductId = productId;
+            
+            //Agregando Imagen
+            if (!string.IsNullOrEmpty(updateProductDto.ImageUrlLocal))
+            {
+                FileInfo file = new FileInfo(updateProductDto.ImageUrlLocal!);
+                
+                Console.WriteLine($"Existe el archivo?: {file.Exists}");
+                
+                if (file.Exists) file.Delete();
+            }
+
+            if (string.IsNullOrEmpty(updateProductDto.ImageUrl))
+                UploadProductImage(updateProductDto, product); 
+            else
+                product.ImageUrl = "https://placehold.co/600x400";
 
             if (!_productRepository.UpdateProduct(product))
             {
@@ -189,7 +243,27 @@ namespace e_commerce.Controllers
             
             return NoContent();
         }
-        
+
+        private void UploadProductImage(dynamic productDto, Product product)
+        {
+                string fileName = product.ProductId + Guid.NewGuid().ToString() + Path.GetExtension(productDto.ImageUrl);
+                var imageFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductsImages");
+
+                if (!Directory.Exists(imageFolder)) Directory.CreateDirectory(imageFolder);
+                
+                var filePath = Path.Combine(imageFolder, fileName);
+                
+                FileInfo file = new FileInfo(filePath);
+                
+                if (file.Exists) file.Delete();
+
+                using var fileStream = new FileStream(filePath, FileMode.Create);
+                productDto.Image.CopyTo(fileStream);
+                var baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host.Value}{HttpContext.Request.PathBase.Value}";
+                product.ImageUrl = $"{baseUrl}/ProductsImages/{fileName}";
+                product.ImageUrlLocal = filePath;
+        }
+
         [HttpDelete("{productId:int}", Name = "RemoveProduct")]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

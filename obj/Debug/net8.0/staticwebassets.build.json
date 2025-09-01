@@ -1,11 +1,39 @@
 {
   "Version": 1,
-  "Hash": "UFTKO5MZIvFz7ELKfYpH5QX2v+ZtVFoRMFqEf0GOyoU=",
+  "Hash": "bUqz+1oaDFlQ+oZV+b0MPD4qlHczbhfXowXEeBo/7M0=",
   "Source": "e-commerce",
   "BasePath": "_content/e-commerce",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "e-commerce/wwwroot",
+      "Source": "e-commerce",
+      "ContentRoot": "/home/ozzy/Documents/c#/e-commerce/wwwroot/",
+      "BasePath": "_content/e-commerce",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "/home/ozzy/Documents/c#/e-commerce/wwwroot/ProductsImages/20089266bd7f-0022-4af1-9015-a442926a3fd9",
+      "SourceId": "e-commerce",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/ozzy/Documents/c#/e-commerce/wwwroot/",
+      "BasePath": "_content/e-commerce",
+      "RelativePath": "ProductsImages/20089266bd7f-0022-4af1-9015-a442926a3fd9",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/ProductsImages/20089266bd7f-0022-4af1-9015-a442926a3fd9"
+    }
+  ]
 }

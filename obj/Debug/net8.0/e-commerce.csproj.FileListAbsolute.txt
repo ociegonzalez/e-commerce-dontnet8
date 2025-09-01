@@ -296,3 +296,4 @@
 /home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 /home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/Microsoft.Extensions.Identity.Core.dll
 /home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/Microsoft.Extensions.Identity.Stores.dll
+/home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/e-commerce.staticwebassets.runtime.json
