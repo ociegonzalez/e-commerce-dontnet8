@@ -1,14 +1,17 @@
+using Asp.Versioning;
 using AutoMapper;
+using e_commerce.Constants;
 using e_commerce.Model;
 using e_commerce.Model.Dtos;
 using e_commerce.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace e_commerce.Controllers
+namespace e_commerce.Controllers.v1
 {
     [Authorize(Roles = "Admin")]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
     // [EnableCors(PolicyNames.AllowSpecificOrigin)]
     public class CategoriesController : ControllerBase
@@ -26,6 +29,8 @@ namespace e_commerce.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [Obsolete("Este metodo esta obsoleto. Use GetCategoriesById de la v2")]
+        // [MapToApiVersion("1.0")]
         // [EnableCors(PolicyNames.AllowSpecificOrigin)]
         public IActionResult GetCategories()
         {
@@ -41,13 +46,19 @@ namespace e_commerce.Controllers
 
         [AllowAnonymous]
         [HttpGet("{id:int}", Name = "GetCategory")]
+        // [ResponseCache(Duration = 10)]
+        [ResponseCache(CacheProfileName = CacheProfiles.Default10)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetCategory(int id)
         {
+            Console.WriteLine($"Category con el Id: {id} a las {DateTime.Now}");
+            
             var category = _categoryRepository.GetCategory(id);
+            
+            Console.WriteLine($"Respuesta con el ID: {id}");
 
             if (category == null) return NotFound($"La categoria o el id {id} no existe");
 

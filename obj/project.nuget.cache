@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "ffj2vMVqSEU=",
+  "dgSpecHash": "TCvyyCiGq+s=",
   "success": true,
   "projectFilePath": "/home/ozzy/Documents/c#/e-commerce/e-commerce.csproj",
   "expectedPackageFiles": [
+    "/home/ozzy/.nuget/packages/asp.versioning.abstractions/8.1.0/asp.versioning.abstractions.8.1.0.nupkg.sha512",
+    "/home/ozzy/.nuget/packages/asp.versioning.http/8.1.0/asp.versioning.http.8.1.0.nupkg.sha512",
+    "/home/ozzy/.nuget/packages/asp.versioning.mvc/8.1.0/asp.versioning.mvc.8.1.0.nupkg.sha512",
+    "/home/ozzy/.nuget/packages/asp.versioning.mvc.apiexplorer/8.1.0/asp.versioning.mvc.apiexplorer.8.1.0.nupkg.sha512",
     "/home/ozzy/.nuget/packages/automapper/14.0.0/automapper.14.0.0.nupkg.sha512",
     "/home/ozzy/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/home/ozzy/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",

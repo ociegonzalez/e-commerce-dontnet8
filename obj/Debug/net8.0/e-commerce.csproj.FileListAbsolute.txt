@@ -287,3 +287,7 @@
 /home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/BCrypt.Net-Next.dll
 /home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
 /home/ozzy/Documents/c#/e-commerce/obj/Debug/net8.0/e-commerce.sourcelink.json
+/home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/Asp.Versioning.Abstractions.dll
+/home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/Asp.Versioning.Http.dll
+/home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/Asp.Versioning.Mvc.dll
+/home/ozzy/Documents/c#/e-commerce/bin/Debug/net8.0/Asp.Versioning.Mvc.ApiExplorer.dll

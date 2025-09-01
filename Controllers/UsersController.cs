@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using AutoMapper;
 using e_commerce.Model.Dtos;
 using e_commerce.Repository.IRepository;
@@ -9,8 +10,9 @@ namespace e_commerce.Controllers
 {
     
     [Authorize(Roles = "Admin")]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersionNeutral]
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _UserRepository;
